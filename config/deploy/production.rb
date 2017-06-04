@@ -6,6 +6,7 @@
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
+server ENV.fetch('DEPLOY_SERVER'), user: ENV.fetch('DEPLOY_USER'), roles: %w{app db web}
 
 
 
@@ -59,3 +60,12 @@
 #     auth_methods: %w(publickey password)
 #     # password: "please use keys"
 #   }
+server ENV.fetch('DEPLOY_SERVER'),
+  user: ENV.fetch('DEPLOY_USER'),
+  roles: %w{web app db},
+  ssh_options: {
+    keys: [ENV.fetch('DEPLOY_KEY')],
+    forward_agent: false,
+    auth_methods: %w(publickey),
+    port: ENV.fetch('DEPLOY_PORT')
+  }
