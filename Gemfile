@@ -50,6 +50,13 @@ group :development do
 
   # for probrem of n+1
   gem 'bullet'
+
+  # for auto deploy
+  gem "capistrano"
+  gem 'capistrano-rails'
+  gem "capistrano-rbenv"
+  gem 'capistrano-bundler'
+  gem 'capistrano3-unicorn', :git => 'git@github.com:noppefoxwolf/capistrano3-unicorn.git'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
