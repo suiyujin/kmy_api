@@ -38,6 +38,13 @@ set :rbenv_type, :system
 set :unicorn_config_path, "#{current_path}/config/unicorn.rb"
 set :unicorn_pid, "#{current_path}/tmp/unicorn.pid"
 
+# notify to slack
+set :slackistrano, {
+  klass: Slackistrano::CustomMessaging,
+  channel: '#deploy',
+  webhook: ENV.fetch('DEPLOY_SLACK_WEBHOOK_URL')
+}
+
 after 'deploy:publishing', 'deploy:restart'
 namespace :deploy do
   desc 'Restart application'

@@ -35,6 +35,8 @@ require "capistrano/bundler"
 require "capistrano/rails/migrations"
 # require "capistrano/passenger"
 require "capistrano3/unicorn"
+require 'slackistrano/capistrano'
+require_relative 'lib/slackistrano/custom_messaging'
 
 require 'dotenv'
 Dotenv.load
