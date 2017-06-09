@@ -58,6 +58,7 @@ group :development do
   gem "capistrano-rbenv"
   gem 'capistrano-bundler'
   gem 'capistrano3-unicorn', :git => 'git@github.com:noppefoxwolf/capistrano3-unicorn.git'
+  gem 'slackistrano'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
