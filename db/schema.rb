@@ -10,12 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170604115950) do
+ActiveRecord::Schema.define(version: 20170610214245) do
+
+  create_table "entities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "tweet_id"
+    t.string   "type"
+    t.text     "text",       limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["tweet_id"], name: "index_entities_on_tweet_id", using: :btree
+  end
 
   create_table "tests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "twitter_id"
+    t.string   "name"
+    t.string   "screen_name"
+    t.string   "location"
+    t.string   "description"
+    t.boolean  "geo_enabled"
+    t.string   "profile_image_url"
+    t.string   "favorite_place"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
 end
