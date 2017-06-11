@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :oauth_users
   resources :users do
     get :personal_information
     get :unfavorable
