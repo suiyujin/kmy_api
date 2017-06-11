@@ -45,11 +45,11 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    # if @user = User.find_by(twitter_id: params[:user][:twitter_id])
+    @user = User.find_by(screen_name: params[:user][:screen_name])
+    if @user
       # すでに調査済みユーザなので、そのままレスポンスしちゃう
-      # render json: { user: { id: @user.id, twitter_id: params[:user][:twitter_id] } }
-      render json: { user: { id: 1, screen_name: 'rinna0613' } }
-    # else
+      render json: { user: { id: @user.id, screen_name: params[:user][:screen_name] } }
+    else
       # params[:user]
       # @user = User.new(user_params)
       #
@@ -58,7 +58,7 @@ class UsersController < ApplicationController
       # else
       #   render json: @user.errors, status: :unprocessable_entity
       # end
-    # end
+    end
   end
 
   # PATCH/PUT /users/1
