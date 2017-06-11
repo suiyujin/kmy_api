@@ -45,19 +45,26 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.find_by(screen_name: params[:user][:screen_name])
-    if @user
+    if @user = User.find_by(screen_name: params[:user][:screen_name])
       # すでに調査済みユーザなので、そのままレスポンスしちゃう
       render json: { user: { id: @user.id, screen_name: params[:user][:screen_name] } }
     else
-      # params[:user]
-      # @user = User.new(user_params)
-      #
-      # if @user.save
-      #   render json: @user, status: :created, location: @user
-      # else
-      #   render json: @user.errors, status: :unprocessable_entity
-      # end
+      t = TwitterClient.new
+      user_attributes = t.show_user_attributes(params[:user][:screen_name])
+      @user = User.new(
+        screen_name: params[:user][:screen_name],
+        twitter_id: user_attributes[:status][:id],
+        name: user_attributes[:name],
+        location: user_attributes[:location],
+        description: user_attributes[:description],
+        geo_enabled: user_attributes[:geo_enabled],
+        profile_image_url: user_attributes[:profile_image_url],
+      )
+      if @user.save
+        render json: { user: { id: @user.id, screen_name: params[:user][:screen_name] } }, status: :created, location: @user
+      else
+        render json: @user.errors, status: :unprocessable_entity
+      end
     end
   end
 
